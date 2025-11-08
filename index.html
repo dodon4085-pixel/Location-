@@ -3,24 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinhata Buzer Hub</title>
+<title>Dinhata Buzzer Hub - Ultimate</title>
 <link rel="stylesheet" href="css/style.css">
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="js/main.js" defer></script>
 <script src="js/location.js" defer></script>
+<script src="js/gesture.js" defer></script>
 </head>
 <body>
+<!-- Header -->
 <header>
-  <h1>Dinhata Buzer Hub</h1>
+  <div class="top-header">
+    <div class="logo">
+      <i class="fas fa-bolt logo-icon"></i>
+      <h1>Dinhata <span>Buzzer Hub</span></h1>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for products, brands and more">
+      <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="user-actions">
+      <div class="action-item" onclick="toggleLogin()">
+        <i class="fas fa-user"></i>
+        <span id="loginText">Login</span>
+      </div>
+      <div class="action-item" onclick="window.location.href='cart.html'">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+        <div class="cart-count" id="headerCartCount">0</div>
+      </div>
+    </div>
+  </div>
   <nav>
-    <a href="cart.html">Cart</a> |
-    <a href="admin.html">Admin</a>
+    <div class="nav-links">
+      <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+      <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+      <a href="admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+    </div>
   </nav>
 </header>
-<main>
-  <h2>Products</h2>
-  <div id="product-list"></div>
-</main>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeLogin()">&times;</span>
+    <h2>Login to Dinhata Buzzer Hub</h2>
+    <form id="loginForm">
+      <input type="text" placeholder="Phone Number" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>New user? <a href="#" style="color: #2874f0;">Sign Up</a></p>
+  </div>
+</div>
+
+<!-- Hero Banner -->
+<section class="hero-banner">
+  <div class="hero-content">
+    <h2>Same Day Delivery in Dinhata</h2>
+    <p>Order before 2PM and get your products delivered within hours. Shop from local stores with Dinhata Buzzer Hub.</p>
+    <button class="cta-button" onclick="window.location.href='cart.html'">Shop Now <i class="fas fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- Categories Carousel -->
+<section class="categories">
+  <h2 class="section-title"><i class="fas fa-th-large"></i> Shop by Category</h2>
+  <div class="category-carousel" id="categoryCarousel">
+    <!-- JS will dynamically load categories -->
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="products">
+  <h2 class="section-title"><i class="fas fa-bolt"></i> Featured Products</h2>
+  <div class="product-grid" id="featuredProducts">
+    <!-- JS will dynamically load products -->
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="feature">
+    <i class="fas fa-shipping-fast feature-icon"></i>
+    <h3 class="feature-title">Free Delivery</h3>
+    <p class="feature-desc">On orders above ₹499 in Dinhata area</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-clock feature-icon"></i>
+    <h3 class="feature-title">Same Day Delivery</h3>
+    <p class="feature-desc">Order before 2PM, get by evening</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-shield-alt feature-icon"></i>
+    <h3 class="feature-title">Secure Payment</h3>
+    <p class="feature-desc">100% secure payment options</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-undo feature-icon"></i>
+    <h3 class="feature-title">Easy Returns</h3>
+    <p class="feature-desc">10-day return policy</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3>ABOUT</h3>
+      <ul class="footer-links">
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>HELP</h3>
+      <ul class="footer-links">
+        <li><a href="#">Payments</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>POLICY</h3>
+      <ul class="footer-links">
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">Terms Of Use</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>SOCIAL</h3>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2025 Dinhata Buzzer Hub. All rights reserved.</p>
+  </div>
+</footer>
 </body>
 </html>
