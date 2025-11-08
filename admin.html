@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinhata Buzer Hub Admin</title>
-<link rel="stylesheet" href="css/style.css">
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-<script src="js/admin.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinhata Buzzer Hub - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f0f2f5; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; background-color: #2874f0; padding: 15px 20px; color: white; }
+        .admin-header h1 { font-size: 24px; }
+        .admin-container { padding: 20px; }
+        .section { background: #fff; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .section h2 { margin-bottom: 15px; color: #2874f0; }
+        input, select { padding: 8px; margin: 5px 0; width: 100%; border-radius: 4px; border: 1px solid #ccc; }
+        button { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; background-color: #2874f0; color: #fff; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #1a5fcc; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f7f7f7; }
+        .action-btn { margin-right: 5px; }
+    </style>
 </head>
 <body>
-<h1>Dinhata Buzer Hub Admin Panel</h1>
-<div id="login-div">
-  <input type="password" id="admin-password" placeholder="Enter Admin Password">
-  <button onclick="loginAdmin()">Login</button>
-</div>
-<div id="admin-panel" style="display:none;">
-  <h2>Add Product</h2>
-  <input type="text" id="pname" placeholder="Product Name">
-  <input type="number" id="pprice" placeholder="Price">
-  <input type="text" id="pimage" placeholder="Image URL">
-  <button onclick="addProduct()">Add Product</button>
-  <h2>Existing Products</h2>
-  <div id="existing-products"></div>
-</div>
+
+    <div class="admin-header">
+        <h1><i class="fas fa-tools"></i> Admin Panel</h1>
+        <button onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="admin-container">
+
+        <!-- Products Management -->
+        <div class="section" id="product-section">
+            <h2><i class="fas fa-box"></i> Products Management</h2>
+            <form id="productForm">
+                <input type="hidden" id="editProductId">
+                <input type="text" id="productName" placeholder="Product Name" required>
+                <input type="number" id="productPrice" placeholder="Price" required>
+                <input type="number" id="productOriginalPrice" placeholder="Original Price (optional)">
+                <input type="number" id="productDiscount" placeholder="Discount % (optional)">
+                <input type="text" id="productCategory" placeholder="Category" required>
+                <input type="text" id="productImg" placeholder="Image URL">
+                <button type="submit">Add / Update Product</button>
+            </form>
+
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Products loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Orders View -->
+        <div class="section" id="orders-section">
+            <h2><i class="fas fa-receipt"></i> Orders</h2>
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="js/admin.js"></script>
 </body>
 </html>
